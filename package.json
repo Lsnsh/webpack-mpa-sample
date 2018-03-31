@@ -1,0 +1,20 @@
+{
+  "name": "webpack-mpa-sample",
+  "version": "1.0.0",
+  "description": "Webpack packs a multi-page sample project.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --config webpack.dev.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lsnsh/webpack-mpa-sample.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lsnsh/webpack-mpa-sample/issues"
+  },
+  "homepage": "https://github.com/Lsnsh/webpack-mpa-sample#readme"
+}
