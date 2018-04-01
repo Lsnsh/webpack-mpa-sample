@@ -15,7 +15,7 @@ $ npm run dev         # visit http://localhost:8080
 
 ## TODO List
 
-- [ ] Manually configure multiple page entries.
+- [x] Manually configure multiple page entries.
 - [ ] Automatically configure multiple page entries.
 - [ ] Optimize the development environment configuration.
 - [ ] Optimize production environment configuration.
