@@ -4,7 +4,8 @@
   "description": "Webpack packs a multi-page sample project.",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --config webpack.dev.js"
+    "dev": "webpack-dev-server --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
   },
   "repository": {
     "type": "git",
