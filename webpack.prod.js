@@ -1,16 +1,18 @@
 const path = require("path");
 const webpack = require("webpack");
+const utils = require("./utils");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+
+const entry = {
+  vendor: ["lodash"],
+  app: "./src/main.js"
+};
 
 module.exports = {
   mode: "production",
-  entry: {
-    vendor: ["lodash"],
-    app: "./src/main.js",
-    index: path.resolve(__dirname, "src/pages/index/index.js"),
-    about: path.resolve(__dirname, "src/pages/about/index.js")
-  },
+  entry: utils.generateEntry(entry),
   devtool: "#source-map",
   output: {
     filename: "[name].[contenthash:6].js",
@@ -37,25 +39,17 @@ module.exports = {
   plugins: [
     // clean dist folder
     new CleanWebpackPlugin(["dist"]),
+    // copy custom static assets
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, "./static"),
+        to: "static",
+        ignore: [".*"]
+      }
+    ]),
     // specify the HTML template file
-    new HtmlWebpackPlugin({
-      filename: "index.html",
-      template: "src/pages/index/index.html",
-      chunks: ["vendor", "app", "index"],
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true
-      }
-    }),
-    new HtmlWebpackPlugin({
-      filename: "about/index.html",
-      template: "src/pages/about/index.html",
-      chunks: ["vendor", "app", "about"],
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true
-      }
-    })
+    // generator HtmlWebpackPlugin instance
+    ...utils.pluginInstance()
   ],
   optimization: {
     // compress files

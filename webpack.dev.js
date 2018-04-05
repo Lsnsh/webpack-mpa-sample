@@ -1,19 +1,23 @@
 const path = require("path");
 const webpack = require("webpack");
+const utils = require("./utils");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+
+const entry = {
+  vendor: ["lodash"],
+  app: "./src/main.js"
+};
 
 module.exports = {
   mode: "development",
-  entry: {
-    vendor: ["lodash"],
-    app: "./src/main.js",
-    index: path.resolve(__dirname, "src/pages/index/index.js"),
-    about: path.resolve(__dirname, "src/pages/about/index.js")
-  },
+  entry: utils.generateEntry(entry),
   devtool: "inline-source-map",
   devServer: {
-    contentBase: "./dist"
+    // contentBase: "./dist"
+    contentBase: false,
+    compress: true
   },
   output: {
     filename: "[name].[hash:6].js",
@@ -40,16 +44,16 @@ module.exports = {
   plugins: [
     // clean dist folder
     new CleanWebpackPlugin(["dist"]),
-    new HtmlWebpackPlugin({
-      filename: "index.html",
-      template: "src/pages/index/index.html",
-      chunks: ["vendor", "app", "index"]
-    }),
-    new HtmlWebpackPlugin({
-      filename: "about/index.html",
-      template: "src/pages/about/index.html",
-      chunks: ["vendor", "app", "about"]
-    })
+    // copy custom static assets
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, "./static"),
+        to: "static",
+        ignore: [".*"]
+      }
+    ]),
+    // specify the HTML template file
+    ...utils.pluginInstance()
   ],
   optimization: {
     // split vendor js into its own file
