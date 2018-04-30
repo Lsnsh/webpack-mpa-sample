@@ -15,7 +15,7 @@ module.exports = {
   entry: utils.generateEntry(entry),
   devtool: "#source-map",
   output: {
-    filename: "[name].[contenthash:6].js",
+    filename: "[name].[chunkhash:6].js",
     path: path.resolve(__dirname, "dist")
   },
   module: {

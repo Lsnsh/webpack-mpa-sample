@@ -15,9 +15,9 @@ module.exports = {
   entry: utils.generateEntry(entry),
   devtool: "inline-source-map",
   devServer: {
-    // contentBase: "./dist"
     contentBase: false,
-    compress: true
+    compress: true,
+    hot: true
   },
   output: {
     filename: "[name].[hash:6].js",
@@ -53,7 +53,9 @@ module.exports = {
       }
     ]),
     // specify the HTML template file
-    ...utils.pluginInstance()
+    ...utils.pluginInstance(),
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   ],
   optimization: {
     // split vendor js into its own file
