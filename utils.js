@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const jsFiles = glob.sync("src/pages/**/index.js");
 const htmlFiles = glob.sync("src/pages/**/index.html");
+const cssFiles = glob.sync("src/pages/**/index.[css|scss]");
 
 // generate entry config
 exports.generateEntry = publicEntry => {
@@ -17,6 +18,7 @@ exports.generateEntry = publicEntry => {
   return Object.assign(publicEntry, entry);
 };
 
+// TODO: generator ExtractTextWebpackPlugin instance
 
 // generator HtmlWebpackPlugin instance
 exports.pluginInstance = () => {
